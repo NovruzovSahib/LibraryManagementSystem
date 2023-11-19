@@ -1,0 +1,16 @@
+﻿@model LibraryManagementSystem.Models.Reader
+@{
+    ViewData["Title"] = "AddReader";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1 style="text-align:center">Add Reader To Library</h1>
+<hr />
+<form asp-action="AddReader" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="ReaderName">Reader Name</label>
+        <input asp-for="ReaderName" class="form-control" />
+        <span asp-validation-for="ReaderName" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary" style="width:100%">Add Reader</button>
+</form>

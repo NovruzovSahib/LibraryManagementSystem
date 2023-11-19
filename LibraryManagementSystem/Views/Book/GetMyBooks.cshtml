@@ -1,0 +1,47 @@
+﻿@model IEnumerable<LibraryManagementSystem.Models.MyBook>
+@{
+    ViewData["Title"] = "MyBooks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="text-align:center">My Books</h1>
+<hr />
+<table class="table table-bordered table-hover table-responsive " style="text-align:center">
+    <thead>
+        <tr>
+            <td>Book Id</td>
+            <td>Title</td>
+            <td>Category Id</td>
+            <td>Category Name</td>
+            <td>Author Id</td>
+            <td>Author Name</td>
+            <td>Description</td>
+            <td>Language</td>
+            <td>Page Count</td>
+            <td>Publication Date</td>
+            <td>Book Cover</td>
+            <td>Return Book</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.BookId</td>
+                <td>@book.Title</td>
+                <td>@book.CategoryName</td>
+                <td>@book.AuthorName</td>
+                <td>@book.Description</td>
+                <td>@book.Language</td>
+                <td>@book.PageCount</td>
+                <td>@book.PublicationDate</td>
+                <td>@book.ImagePath</td>
+                <td style="width:25%">
+                    <form asp-action="DeleteMyBook" asp-route-id="@book.BookId" method="post" onsubmit="return confirm('Are you sure you want to return this book?');">
+                        <button type="submit" class="btn btn-danger">Return Book</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

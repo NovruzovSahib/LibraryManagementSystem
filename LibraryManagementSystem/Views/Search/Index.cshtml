@@ -1,0 +1,64 @@
+﻿@model List<LibraryManagementSystem.Models.Book>
+
+<h1 style="text-align:center">Search Results</h1>
+<hr />
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Book Id</td>
+                <td>Title</td>
+                <td>Category Id</td>
+                <td>Category Name</td>
+                <td>Author Id</td>
+                <td>Author Name</td>
+                <td>Description</td>
+                <td>Language</td>
+                <td>Page Count</td>
+                <td>Publication Date</td>
+                <td>Book Cover</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.BookId</td>
+                    <td>@book.Title</td>
+                    <td>@book.CategoryId</td>
+                    <td>@book.CategoryName</td>
+                    <td>@book.AuthorId</td>
+                    <td>@book.AuthorName</td>
+                    <td>@book.Description</td>
+                    <td>@book.Language</td>
+                    <td>@book.PageCount</td>
+                    <td>@book.PublicationDate</td>
+                    <td>
+                        <img src="@book.ImagePath" alt="Description of the image" width="200px" height="300px">
+                    </td>
+                    <td>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Worker"))
+                        {
+                            <div style="display: flex; justify-content:center">
+                                <div style="margin-right: 5px;">
+                                    <a asp-action="DeleteBook" asp-route-id="@book.BookId" class="btn btn-danger"
+                                       onclick="return confirm('Are you sure you want to delete this book?');">Delete Book</a>
+                                    <a asp-action="UpdateBook" asp-route-id="@book.BookId" class="btn btn-success">Update Book</a>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No results found.</p>
+}
+
+
+
+

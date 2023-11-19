@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Library Management</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar">
+            <div class="p-4 pt-5">
+                <a asp-action="Index" asp-controller="Home" class="img logo mb-5" style="background-image: url(/images/Library-Management-Source-Code.jpg)"></a>
+                <ul class="list-unstyled components mb-5">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li style="text-align:center">Welcome @User.Identity.Name!</li>
+                    }
+                    <li>
+                        <a asp-action="Index" asp-controller="Dashboard">Dashboard</a>
+                    </li>
+                    <li class="active">
+                        <a href="#librarySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Library</a>
+                        <ul class="collapse list-unstyled" id="librarySubmenu">
+                            <li>
+                                <a asp-controller="Book" asp-action="GetBooks">Books</a>
+                            </li>
+                            @if (User != null && User.Identity.IsAuthenticated && User.IsInRole("Reader"))
+                            {
+                                <li>
+                                    <a asp-controller="Book" asp-action="GetMyBooks">My Books</a>
+                                </li>
+                            }
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="Category" asp-action="Index">Categories</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Author" asp-action="Index">Authors</a>
+                    </li>
+                    @if (User != null && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li>
+                            <a asp-controller="Worker" asp-action="Index">Workers</a>
+                        </li>
+                    }
+                    @if (User != null && User.Identity.IsAuthenticated && User.IsInRole("Admin") || User.IsInRole("Worker"))
+                    {
+                        <li>
+                            <a asp-controller="Reader" asp-action="Index">Readers</a>
+                        </li>
+                    }
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>
+                            <a asp-controller="Account" asp-action="Profile">My Profile</a>
+                        </li>
+                    }
+
+                    <li>
+                        <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                    <li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                        <li>
+                            <form method="post" asp-controller="Account" asp-action="Logout">
+                                <a href="/Account/Login">Logout</a>
+                            </form>
+                        </li>
+                        }
+                        else
+                        {
+                        <li>
+                            <a asp-controller="Account" asp-action="Login">Login</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Account" asp-action="Register">Register</a>
+                        </li>
+                        }
+                        @if (User != null && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                        <li>
+                            <a asp-controller="Account" asp-action="CreateRole">Create Role</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Account" asp-action="DeleteRole">Delete Role</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Account" asp-action="AddRoleToUser">Add Role</a>
+                        </li>
+                        }
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Page Content  -->
+
+        <div id="content" class="p-4 p-md-5">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                        <i class="fa fa-bars"></i>
+                        <span class="sr-only">Toggle Menu</span>
+                    </button>
+                    <form class="form-inline my-2 my-lg-0" asp-controller="Search" asp-action="Index" method="get">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search Books" aria-label="Search" name="query">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+            <div id="scrollUp" title="Scroll To Top" style="display: block;">
+                <svg class="svg-inline--fa fa-arrow-up fa-w-14" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"></path></svg><!-- <i class="fas fa-arrow-up"></i> -->
+            </div>
+            <hr />
+
+            <footer class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h3>About Us</h3>
+                            <p>Welcome to our Library Management System. We are dedicated to providing a vast collection of books and resources to our readers. Explore the world of knowledge with us!</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h3>Quick Links</h3>
+                            <ul>
+                                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li><a asp-controller="Home" asp-action="About">About</a></li>
+                                <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h3>Contact Us</h3>
+                            <p style="color:black">123 Library Street<br>Cityville, State, 12345<br>Email: info@example.com<br>Phone: +1 (123) 456-7890</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                            <p class="text-center" style="color:black">&copy; 2023 Library Management System. All rights reserved. | Designed by Sahib</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#scrollUp').click(function () {
+                $('html, body').animate({ scrollTop: 0 }, 'slow');
+            });
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 100) {
+                    $('#scrollUp').fadeIn();
+                } else {
+                    $('#scrollUp').fadeOut();
+                }
+            });
+        });</script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/popper.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,20 @@
+﻿@model LibraryManagementSystem.Models.Author
+@{
+    ViewData["Title"] = "UpdateAuthor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="text-align:center">Update Author</h1>
+<hr />
+<form asp-action="UpdateAuthor" method="post">
+    <input type="hidden" asp-for="AuthorId" />
+
+    <div class="form-group">
+        <label asp-for="AuthorName">Author Name</label>
+        <input asp-for="AuthorName" class="form-control" />
+        <span asp-validation-for="AuthorName" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Author</button>
+</form>
+
+<a asp-action="Author" class="btn btn-secondary mt-2">Back to Author</a>

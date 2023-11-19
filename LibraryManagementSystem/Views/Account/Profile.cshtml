@@ -1,0 +1,24 @@
+﻿@model LibraryManagementSystem.ViewModels.ProfileViewModel
+@{
+    ViewData["Title"] = "Reader";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="text-align:center">My Profile</h1>
+<hr />
+<table class="table table-bordered table-hover table-responsive " style="text-align:center">
+    <thead>
+        <tr>
+            <th>Profile Name</th>
+            <th>Profile Email</th>
+            <!-- Add other table headers as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Username</td>
+            <td>@Model.Email</td>
+            <!-- Add other profile properties as needed -->
+        </tr>
+    </tbody>
+</table>

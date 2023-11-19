@@ -1,0 +1,54 @@
+﻿@model AddRoleToUser
+
+@{
+    ViewData["Title"] = "AddRoleToUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="text-align:center">Add Role To User</h1>
+<hr />
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddRoleToUser</title>
+</head>
+<body>
+    <form method="post">
+        <div>
+            <label>
+                Select Role
+            </label>
+        </div>
+        <div>
+            <select asp-for="@Model.RoleId">
+                @foreach (var role in Model.RolerList)
+                {
+                    <option value="@role.Name">@role.Name</option>
+                }
+            </select>
+        </div>
+        <div>
+            <label>
+                User Name
+            </label>
+        </div>
+        <div>
+            <select asp-for="@Model.UserId">
+                @foreach (var user in Model.UserList)
+                {
+                    <option value="@user.Id">@user.UserName</option>
+                }
+
+            </select>
+        </div>
+        <br />
+        <br />
+
+        <button type="submit">Set Role To User</button>
+    </form>
+    <a asp-controller="Home" asp-action="Index"> Go back</a>
+
+</body>
+</html>

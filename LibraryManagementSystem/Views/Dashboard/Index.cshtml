@@ -1,0 +1,170 @@
+﻿@model DashboardViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1 class="text-center">Dashboard</h1>
+<hr />
+<style>
+    .rounded p-3 {
+        width: 400px;
+    }
+</style>
+<div class="container-fluid" style="text-align:center">
+    <div class="row">
+        <!-- Add this line to include Chart.js library -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+        <div class="col-md-6 col-lg-4 mb-3">
+            <div class="bg-success rounded p-3">
+                <canvas id="totalBooksCount" width="200" height="200"></canvas>
+                <div class="fs-3 text-white" id="totalBooksCount">@Model.TotalBooks</div>
+                <div class="fs-5 text-white">Books</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-3">
+            <div class="bg-secondary rounded p-3">
+                <canvas id="totalReadersCount" width="200" height="200"></canvas>
+                <div class="fs-3 text-white" id="totalReadersCount">@Model.Readers</div>
+                <div class="fs-5 text-white">Readers</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-3">
+            <div class="bg-warning rounded p-3">
+                <canvas id="totalWorkersCount" width="200" height="200"></canvas>
+                <div class="fs-3 text-white" id="totalWorkersCount">@Model.Workers</div>
+                <div class="fs-5 text-white">Workers</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-3">
+            <div class="bg-danger rounded p-3">
+                <canvas id="totalAuthorsCount" width="200" height="200"></canvas>
+                <div class="fs-3 text-white" id="totalAuthorsCount">@Model.Authors</div>
+                <div class="fs-5 text-white">Authors</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-3">
+            <div class="bg-primary rounded p-3">
+                <canvas id="totalCategoriesCount" width="200" height="200"></canvas>
+                <div class="fs-3 text-white" id="totalCategoriesCount">@Model.Categories</div>
+                <div class="fs-5 text-white">Categories</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var totalBooksCount = @Model.TotalBooks;
+    var totalAuthorsCount = @Model.Authors;
+    var totalCategoriesCount = @Model.Categories;
+    var totalReadersCount = @Model.Readers;
+    var totalWorkersCount = @Model.Workers;
+
+    var totalBooksCtx = document.getElementById('totalBooksCount').getContext('2d');
+    var totalAuthorsCtx = document.getElementById('totalAuthorsCount').getContext('2d');
+    var totalCategoriesCtx = document.getElementById('totalCategoriesCount').getContext('2d');
+    var totalReadersCtx = document.getElementById('totalReadersCount').getContext('2d');
+    var totalWorkersCtx = document.getElementById('totalWorkersCount').getContext('2d');
+
+    var totalBooksChart = new Chart(totalBooksCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Total Books', 'Remaining Books'],
+            datasets: [{
+                data: [totalBooksCount, 100 - totalBooksCount], // Assuming total books is 100
+                backgroundColor: ['#007bff', '#ffffff'],
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#ffffff', // Change label color here
+                    }
+                }
+            }
+        }
+    });
+    var totalAuthorsChart = new Chart(totalAuthorsCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Total Authors', 'Remaining Authors'],
+            datasets: [{
+                data: [totalAuthorsCount, 100 - totalAuthorsCount], // Assuming total books is 100
+                backgroundColor: ['#007bff', '#ffffff'],
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#ffffff', // Change label color here
+                    }
+                }
+            }
+        }
+    });
+    var totalCategoriesChart = new Chart(totalCategoriesCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Total Categories', 'Remaining Categories'],
+            datasets: [{
+                data: [totalCategoriesCount, 100 - totalCategoriesCount], // Assuming total books is 100
+                backgroundColor: ['#007bff', '#ffffff'],
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#ffffff', // Change label color here
+                    }
+                }
+            }
+        }
+    });
+    var totalReadersChart = new Chart(totalReadersCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Total Readers', 'Remaining Readers'],
+            datasets: [{
+                data: [totalReadersCount, 100 - totalReadersCount], // Assuming total books is 100
+                backgroundColor: ['#007bff', '#ffffff'],
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#ffffff', // Change label color here
+                    }
+                }
+            }
+        }
+    });
+    
+    var totalWorkersChart = new Chart(totalWorkersCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Total Workers', 'Remaining Workers'],
+            datasets: [{
+                data: [totalWorkersCount, 100 - totalWorkersCount], // Assuming total books is 100
+                backgroundColor: ['#007bff', '#ffffff'],
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#ffffff', // Change label color here
+                    }
+                }
+            }
+        }
+    });
+
+    
+</script>
+

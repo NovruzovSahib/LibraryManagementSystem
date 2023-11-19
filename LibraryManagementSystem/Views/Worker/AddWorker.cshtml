@@ -1,0 +1,16 @@
+﻿@model LibraryManagementSystem.Models.Worker
+@{
+    ViewData["Title"] = "AddWorker";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1 style="text-align:center">Add Worker To Library</h1>
+<hr />
+<form asp-action="AddWorker" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="WorkerName">Worker Name</label>
+        <input asp-for="WorkerName" class="form-control" />
+        <span asp-validation-for="WorkerName" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary" style="width:100%">Add Worker</button>
+</form>
