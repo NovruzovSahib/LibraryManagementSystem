@@ -108,7 +108,7 @@ namespace LibraryManagementSystem.Controllers
 
                 _appDbContext.MyBooks.Add(myBook);
                 await _appDbContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("GetMyBooks");
             }
             return NotFound();
         }
@@ -176,6 +176,21 @@ namespace LibraryManagementSystem.Controllers
                 await _appDbContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            return NotFound();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteMyBook(int id)
+        {
+            var myBook = await _appDbContext.MyBooks.FindAsync(id);
+
+            if (myBook != null)
+            {
+                _appDbContext.MyBooks.Remove(myBook);
+                await _appDbContext.SaveChangesAsync();
+                return RedirectToAction("GetMyBooks");
+            }
+
             return NotFound();
         }
     }

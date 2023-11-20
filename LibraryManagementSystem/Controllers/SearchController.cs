@@ -15,7 +15,7 @@ namespace LibraryManagementSystem.Controllers
         {
             var allBooks = _appDbContext.Books.ToList();
             var searchResults = allBooks
-                .Where(book => book.Title.Contains(query, StringComparison.OrdinalIgnoreCase))
+                .Where(book => book.Title.Contains(query.Trim(), StringComparison.OrdinalIgnoreCase))
                 .ToList();
             return View(searchResults);
         }

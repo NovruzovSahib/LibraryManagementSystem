@@ -41,7 +41,7 @@
                     <img src="@book.ImagePath" alt="Description of the image" width="200px" height="300px">
                 </td>
                 <td>
-                     @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+                     @if (User.Identity.IsAuthenticated && User.IsInRole("Reader"))
                 {
                     <form method="post" asp-action="AddToMyBooks" asp-route-id="@book.BookId">
                         <button type="submit" class="btn btn-primary">Add to MyBooks</button>
